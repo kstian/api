@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: OpenHR
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /employees:
+    get:
+      summary: List all employees
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - firstName
+                        - lastName
+                      properties:
+                        firstName:
+                          type: string
+                          minLength: 1
+                        lastName:
+                          type: string
+                          minLength: 1
+                  page:
+                    type: number
+                  size:
+                    type: number
+                required:
+                  - content
+                  - page
+                  - size
+              examples:
+                example-1:
+                  value:
+                    content:
+                      - firstName: John
+                        lastName: Doe
+                    page: 1
+                    size: 10
+      operationId: get-employees
+      parameters:
+        - schema:
+            type: string
+            example: John
+            minLength: 1
+            maxLength: 60
+          in: query
+          name: firstName
+          description: Filter result by employee first name
+        - schema:
+            type: string
+            example: Doe
+            minLength: 1
+            maxLength: 60
+          in: query
+          name: lastName
+          description: Filter result by employee last name
+        - schema:
+            type: number
+            example: 1
+          in: query
+          name: page
+          description: Return specific page number
+        - schema:
+            type: number
+            minimum: 1
+            maximum: 20
+          in: query
+          name: size
+          description: Limit result size
+    post:
+      summary: Create new employee
+      tags: []
+      responses: {}
+      operationId: post-employees
+    put:
+      summary: Update existing employee
+      tags: []
+      responses: {}
+      operationId: put-employees
+    delete:
+      summary: Delete existing employee
+      tags: []
+      responses: {}
+      operationId: delete-employees
+components:
+  schemas: {}
+  securitySchemes: {}
