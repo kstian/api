@@ -24,9 +24,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      required:
-                        - firstName
-                        - lastName
+                      type: object
                       properties:
                         firstName:
                           type: string
@@ -34,6 +32,12 @@ paths:
                         lastName:
                           type: string
                           minLength: 1
+                        joinDate:
+                          type: string
+                          example: '2020-01-01'
+                      required:
+                        - firstName
+                        - lastName
                   page:
                     type: number
                   size:
@@ -48,6 +52,7 @@ paths:
                     content:
                       - firstName: John
                         lastName: Doe
+                        joinDate: '2020-01-01'
                     page: 1
                     size: 10
       operationId: get-employees
